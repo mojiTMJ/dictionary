@@ -4,3 +4,4 @@ builds/unpacked
 test/
 .DS_Store
 Thumbs.db
+.*
