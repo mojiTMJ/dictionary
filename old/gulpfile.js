@@ -12,7 +12,6 @@ var zip = require('gulp-zip');
 var rename = require('gulp-rename');
 var util = require('gulp-util');
 var runSequence = require('run-sequence');
-
 /* clean */
 gulp.task('clean', function () {
   return gulp.src([
@@ -52,7 +51,7 @@ gulp.task('chrome-build', function () {
   .pipe(gulpif(function (f) {
     return f.path.indexOf('.html') !== -1;
   }, change(function (content) {
-    return content.replace(/.*shadow_index\.js.*/, '    <script src="chrome/chrome.js"></script>\n    <script src="index.js"></script>');
+    return content.replace(/.*shadow_index\.js.*/, '  <script src="chrome/chrome.js"></script>\n   <script src="index.js"></script>');
   })))
   .pipe(gulp.dest('builds/unpacked/chrome'))
   .pipe(zip('chrome.zip'))
@@ -67,7 +66,6 @@ gulp.task('chrome-install', function () {
     cwd: './builds/unpacked/chrome'
   }));
 });
-
 /* firefox build */
 gulp.task('firefox-build', function () {
   gulp.src([
@@ -122,7 +120,6 @@ gulp.task('firefox-pack', function () {
     cwd: './builds/packed'
   }));
 });
-/* */
 gulp.task('chrome', function (callback) {
   runSequence('clean', 'chrome-build', 'chrome-install', callback);
 });
